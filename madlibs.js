@@ -94,39 +94,64 @@ function parseStory(rawStory) {
 getRawStory()
   .then(parseStory)
   .then((processedStory) => {
-    //console.log(processedStory);
+   // console.log(processedStory);
 
   const madLibsEdit = document.querySelector(".madLibsEdit");
-  const p = document.createElement("p");
-
   const madLibsPreview = document.querySelector(".madLibsPreview");
-  const pre = document.createElement("p");
  
     for(let i=0; i<processedStory.length; i++){
      if(!processedStory[i].pos) {
       if(processedStory[i].word.includes("\n")){
-         p.innerHTML += `<br>`;
-         pre.innerHTML += `<br>`;
-        madLibsEdit.appendChild(p);
-        madLibsPreview.appendChild(pre);
+        const bre = document.createElement("br");
+        const brp = document.createElement("br");
+      
+        madLibsEdit.appendChild(bre);
+        madLibsPreview.appendChild(brp);
       }
-       p.innerHTML += ` ${processedStory[i].word}`;
-       pre.innerHTML += ` ${processedStory[i].word}`;
-       madLibsEdit.appendChild(p);
-       madLibsPreview.appendChild(pre);
+
+
+      const spanEdit = document.createElement("span");
+      const spanPre = document.createElement("span");
+
+      const editNode = document.createTextNode(` ${processedStory[i].word} `);
+      const preNode = document.createTextNode(` ${processedStory[i].word} `);
+
+      spanEdit.appendChild(editNode);
+      spanPre.appendChild(preNode);
+
+      madLibsEdit.appendChild(spanEdit);
+      madLibsPreview.appendChild(spanPre);
+     
      } else {
         let inpt = document.createElement("input");
         inpt.setAttribute("type", "text");
         inpt.setAttribute("placeholder", `${processedStory[i].pos}`);
-
-      //   inpt.addEventListener("onchange", function(){
-      //   pre.innerHTML +=  inpt.value;
-      //   madLibsPreview.appendChild(pre);
-      // })
-
-        p.appendChild(inpt);
-    
-        madLibsEdit.appendChild(p);
+        inpt.addEventListener("keyup", function(){
+          const inputValue = document.createTextNode(`${inpt.value}`)
+          madLibsPreview.appendChild(inputValue);
+        })
+  
+        madLibsEdit.appendChild(inpt);
      }
     }
+
+
+  function enter(e){
+      let inpts = document.querySelectorAll("input");
+
+     for(let i = 0; i < inpts.length; i++){
+  
+      inpts[i].addEventListener("keyup", function(e){
+        //console.log(e.key);
+        if(inpts[i+1] && e.key === "Enter"){
+          //e.preventDefault();
+          inpts[i+1].focus();
+        }else if(inpts[inpts.length-1] && e.key === "Enter"){
+          inpts[0].focus();
+         }
+      });
+     }
+   }
+   enter(); 
+   
   });
