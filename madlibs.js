@@ -123,14 +123,21 @@ getRawStory()
       madLibsPreview.appendChild(spanPre);
      
      } else {
-        let inpt = document.createElement("input");
-        inpt.setAttribute("type", "text");
-        inpt.setAttribute("placeholder", `${processedStory[i].pos}`);
-        inpt.addEventListener("keyup", function(){
-          const inputValue = document.createTextNode(`${inpt.value}`)
-          madLibsPreview.appendChild(inputValue);
+      const spanPre2 = document.createElement("span");
+      spanPre2.setAttribute("id", i);
+      madLibsPreview.appendChild(spanPre2);
+
+      let inpt = document.createElement("input");
+      inpt.setAttribute("type", "text");
+      inpt.setAttribute("name", i);
+      inpt.setAttribute("placeholder", `${processedStory[i].pos}`);
+
+      inpt.addEventListener("keyup", function(){
+        const inputValue = document.createTextNode(`${inpt.value}`);
+
+        const selectedSpan = document.getElementById(i);
+        selectedSpan.innerHTML = inpt.value;
         })
-  
         madLibsEdit.appendChild(inpt);
      }
     }
