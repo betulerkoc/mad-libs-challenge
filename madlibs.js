@@ -1,4 +1,5 @@
 
+
 /**
  * Complete the implementation of parseStory.
  *
@@ -120,7 +121,7 @@ getRawStory()
       madLibsEdit.appendChild(spanEdit);
       madLibsPreview.appendChild(spanPre);
      } 
-     else {
+      else {
       const spanPre = document.createElement("span");
       spanPre.setAttribute("id", i);
       madLibsPreview.appendChild(spanPre);
@@ -132,15 +133,20 @@ getRawStory()
       inpt.setAttribute("placeholder", `${processedStory[i].pos}`);
 
       inpt.addEventListener("keyup", function(){
-        const inputValue = document.createTextNode(`${inpt.value}`);
         const selectedSpan = document.getElementById(i);
         selectedSpan.innerHTML = ` ${inpt.value} `;
+
+        //local storage set item
+        localStorage.setItem(i, inpt.value);
       });
+
+      //local storage get item and set it to madLibsPreview
+      const updatedSpan = document.getElementById(i);
+      updatedSpan.innerHTML = localStorage.getItem(i);
 
       madLibsEdit.appendChild(inpt);
      }
     }
-
 
   function enter(e){
       let inpts = document.querySelectorAll("input");
@@ -159,5 +165,4 @@ getRawStory()
      }
    }
    enter(); 
-   
   });
