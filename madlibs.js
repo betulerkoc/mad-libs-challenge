@@ -32,13 +32,12 @@
 function parseStory(rawStory) {
 
   const output = [];
-  const reg = /((?:[^\s]){1,}\[\w+\]),?/g;
+ // const reg = /((?:[^\s]){1,}\[\w+\]),?/g;
   const reg2 = /(\[\w+\]),?/g;
 
   const individualWords = rawStory.split(' ');
  // console.log(individualWords);
   
-
   for(let i=0; i< individualWords.length; i++){
   
     let word = individualWords[i].split("[");
@@ -109,7 +108,6 @@ getRawStory()
         madLibsPreview.appendChild(brp);
       }
 
-
       const spanEdit = document.createElement("span");
       const spanPre = document.createElement("span");
 
@@ -121,24 +119,25 @@ getRawStory()
 
       madLibsEdit.appendChild(spanEdit);
       madLibsPreview.appendChild(spanPre);
-     
-     } else {
-      const spanPre2 = document.createElement("span");
-      spanPre2.setAttribute("id", i);
-      madLibsPreview.appendChild(spanPre2);
+     } 
+     else {
+      const spanPre = document.createElement("span");
+      spanPre.setAttribute("id", i);
+      madLibsPreview.appendChild(spanPre);
 
       let inpt = document.createElement("input");
       inpt.setAttribute("type", "text");
       inpt.setAttribute("name", i);
+      inpt.setAttribute("maxlength", 20);
       inpt.setAttribute("placeholder", `${processedStory[i].pos}`);
 
       inpt.addEventListener("keyup", function(){
         const inputValue = document.createTextNode(`${inpt.value}`);
-
         const selectedSpan = document.getElementById(i);
-        selectedSpan.innerHTML = inpt.value;
-        })
-        madLibsEdit.appendChild(inpt);
+        selectedSpan.innerHTML = ` ${inpt.value} `;
+      });
+
+      madLibsEdit.appendChild(inpt);
      }
     }
 
