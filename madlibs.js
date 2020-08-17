@@ -115,6 +115,8 @@ getRawStory()
       const editNode = document.createTextNode(` ${processedStory[i].word} `);
       const preNode = document.createTextNode(` ${processedStory[i].word} `);
 
+      //preNode.classList.add("spanClass");
+
       spanEdit.appendChild(editNode);
       spanPre.appendChild(preNode);
 
@@ -124,6 +126,7 @@ getRawStory()
       else {
       const spanPre = document.createElement("span");
       spanPre.setAttribute("id", i);
+      spanPre.classList.add("spanClass");
       madLibsPreview.appendChild(spanPre);
 
       let inpt = document.createElement("input");

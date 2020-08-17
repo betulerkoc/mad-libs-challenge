@@ -80,6 +80,9 @@ input:focus {
   color: #0e0d0d;
 }
 
+.spanClass{
+  color: #760808;
+}
 
 .glow {
   font-size: 80px;
