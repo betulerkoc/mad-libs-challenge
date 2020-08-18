@@ -48,9 +48,9 @@ function parseStory(rawStory) {
     objectOutput.word = onlyWord;
 
     if(individualWords[i].match(reg2) != null) {
-      const result2 = individualWords[i].match(reg2);
-    //  console.log(result2);
-        let resultValue = result2[0][1];
+      const posValue = individualWords[i].match(reg2);
+    //  console.log(posValue);
+        let resultValue = posValue[0][1];
 
         switch(resultValue){
           case "n": 
@@ -109,29 +109,30 @@ getRawStory()
         madLibsPreview.appendChild(brp);
       }
 
+        //For edit
       const spanEdit = document.createElement("span");
-      const spanPre = document.createElement("span");
-
       const editNode = document.createTextNode(` ${processedStory[i].word} `);
-      const preNode = document.createTextNode(` ${processedStory[i].word} `);
-
-      //preNode.classList.add("spanClass");
-
       spanEdit.appendChild(editNode);
-      spanPre.appendChild(preNode);
-
       madLibsEdit.appendChild(spanEdit);
+
+       //For Preview
+      const spanPre = document.createElement("span");
+      const preNode = document.createTextNode(` ${processedStory[i].word} `);
+      spanPre.appendChild(preNode);
       madLibsPreview.appendChild(spanPre);
      } 
       else {
+        //For preview
       const spanPre = document.createElement("span");
       spanPre.setAttribute("id", i);
       spanPre.classList.add("spanClass");
+      // const preNode = document.createTextNode("hello");
+      // spanPre.appendChild(preNode);
       madLibsPreview.appendChild(spanPre);
 
+        //For edit
       let inpt = document.createElement("input");
       inpt.setAttribute("type", "text");
-      inpt.setAttribute("name", i);
       inpt.setAttribute("maxlength", 20);
       inpt.setAttribute("placeholder", `${processedStory[i].pos}`);
 
@@ -153,19 +154,15 @@ getRawStory()
 
   function enter(e){
       let inpts = document.querySelectorAll("input");
-
-     for(let i = 0; i < inpts.length; i++){
-  
-      inpts[i].addEventListener("keyup", function(e){
-        //console.log(e.key);
-        if(inpts[i+1] && e.key === "Enter"){
-          //e.preventDefault();
-          inpts[i+1].focus();
-        }else if(inpts[inpts.length-1] && e.key === "Enter"){
-          inpts[0].focus();
-         }
-      });
-     }
+      for(let i = 0; i < inpts.length; i++){
+        inpts[i].addEventListener("keyup", function(e){
+          if(inpts[i+1] && e.key === "Enter"){
+            inpts[i+1].focus();
+          }else if(inpts[inpts.length-1] && e.key === "Enter"){
+            inpts[0].focus();
+          }
+        });
+      }
    }
    enter(); 
   });
