@@ -33,8 +33,7 @@
 function parseStory(rawStory) {
 
   const output = [];
- // const reg = /((?:[^\s]){1,}\[\w+\]),?/g;
-  const reg2 = /(\[\w+\]),?/g;
+  const reg = /(\[\w+\]),?/g;
 
   const individualWords = rawStory.split(' ');
  // console.log(individualWords);
@@ -46,9 +45,10 @@ function parseStory(rawStory) {
     
     let objectOutput = {};
     objectOutput.word = onlyWord;
+    
 
-    if(individualWords[i].match(reg2) != null) {
-      const posValue = individualWords[i].match(reg2);
+    if(individualWords[i].match(reg) != null) {
+      const posValue = individualWords[i].match(reg);
     //  console.log(posValue);
         let resultValue = posValue[0][1];
 
@@ -125,9 +125,7 @@ getRawStory()
         //For preview
       const spanPre = document.createElement("span");
       spanPre.setAttribute("id", i);
-      spanPre.classList.add("spanClass");
-      // const preNode = document.createTextNode("hello");
-      // spanPre.appendChild(preNode);
+      spanPre.classList.add("spanClass"); 
       madLibsPreview.appendChild(spanPre);
 
         //For edit
@@ -146,7 +144,12 @@ getRawStory()
 
       //local storage get item and set it to madLibsPreview
       const updatedSpan = document.getElementById(i);
-      updatedSpan.innerHTML = localStorage.getItem(i);
+
+      if(!localStorage.getItem(i)) {
+        updatedSpan.innerHTML = `(${processedStory[i].pos})`;
+      } else {
+        updatedSpan.innerHTML = localStorage.getItem(i);
+      }
 
       madLibsEdit.appendChild(inpt);
      }
