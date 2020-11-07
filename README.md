@@ -1,4 +1,4 @@
-## Project Link: https://goofy-wozniak-68db7a.netlify.app/
+## Project Link: https://madlibz-68db7a.netlify.app/
 
 # Re:Coded Mad Libz
 
